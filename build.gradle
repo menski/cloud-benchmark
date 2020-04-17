@@ -1,0 +1,27 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id "io.freefair.lombok" version "5.0.0-rc6"
+	id 'com.google.cloud.tools.jib' version '2.1.0'
+	id 'java'
+}
+
+group = 'org.menski'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+jib.to.image = 'menski/cloud-benchmark'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.zeebe:zeebe-client-java:0.23.0'
+	implementation 'io.micrometer:micrometer-core:latest.release'
+	implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
+}
+

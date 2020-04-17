@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0e2vqtz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.9.0">
+  <bpmn:process id="Wait" name="Wait" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>Flow_042tqux</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_042tqux" sourceRef="StartEvent_1" targetRef="Event_1s8y0vn" />
+    <bpmn:endEvent id="Event_19f4rxd" name="End">
+      <bpmn:incoming>Flow_055gtjd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_055gtjd" sourceRef="Event_1s8y0vn" targetRef="Event_19f4rxd" />
+    <bpmn:intermediateCatchEvent id="Event_1s8y0vn" name="Wait">
+      <bpmn:incoming>Flow_042tqux</bpmn:incoming>
+      <bpmn:outgoing>Flow_055gtjd</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0w5olhy">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">=waitTime</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Wait">
+      <bpmndi:BPMNEdge id="Flow_042tqux_di" bpmnElement="Flow_042tqux">
+        <di:waypoint x="215" y="97" />
+        <di:waypoint x="262" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_055gtjd_di" bpmnElement="Flow_055gtjd">
+        <di:waypoint x="298" y="97" />
+        <di:waypoint x="342" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="185" y="122" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_19f4rxd_di" bpmnElement="Event_19f4rxd">
+        <dc:Bounds x="342" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="350" y="122" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_191zn0a_di" bpmnElement="Event_1s8y0vn">
+        <dc:Bounds x="262" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="269" y="122" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

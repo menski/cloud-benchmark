@@ -1,0 +1,58 @@
+{
+  "loops": 30,
+  "_id": "5e99eb508efc46eaff5a5f48",
+  "index": 0,
+  "guid": "9b249f0e-d8de-46aa-867d-125847330f03",
+  "isActive": true,
+  "balance": "$3,602.09",
+  "picture": "http://placehold.it/32x32",
+  "age": 21,
+  "eyeColor": "green",
+  "name": {
+    "first": "Ray",
+    "last": "Warren"
+  },
+  "company": "SLAX",
+  "email": "ray.warren@slax.io",
+  "phone": "+1 (964) 498-3889",
+  "address": "346 Lafayette Walk, Faywood, North Dakota, 3482",
+  "about": "Et dolor magna tempor velit dolor laborum eiusmod anim consequat ad veniam anim minim. Ullamco fugiat Lorem ea reprehenderit commodo consequat nostrud officia adipisicing voluptate ipsum. Occaecat qui laboris irure velit labore duis et esse tempor elit mollit ipsum nisi consectetur.",
+  "registered": "Sunday, August 26, 2018 9:40 AM",
+  "latitude": "86.467029",
+  "longitude": "113.110273",
+  "tags": [
+    "eu",
+    "id",
+    "duis",
+    "nulla",
+    "non"
+  ],
+  "range": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "friends": [
+    {
+      "id": 0,
+      "name": "Meyers Martin"
+    },
+    {
+      "id": 1,
+      "name": "Nolan Welch"
+    },
+    {
+      "id": 2,
+      "name": "Rose Rutledge"
+    }
+  ],
+  "greeting": "Hello, Ray! You have 6 unread messages.",
+  "favoriteFruit": "apple"
+}
