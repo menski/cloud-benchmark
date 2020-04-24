@@ -19,10 +19,10 @@ public class StarterProperties {
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-  public String bpmn = "loop.bpmn";
+  public String bpmn = "parallel-tasks.bpmn";
   public String payload = "loop.json";
 
-  public int concurrency = 10;
+  public int ratePerMinute = 60;
 
   @Bean
   @SneakyThrows

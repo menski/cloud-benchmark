@@ -15,13 +15,24 @@ jib.to.image = 'menski/cloud-benchmark'
 repositories {
 	mavenCentral()
 }
+def grpcVersion = 'latest.release' // CURRENT_GRPC_VERSION
+def nettyTcNativeVersion = '2.0.30.Final'
+def protocVersion = '3.11.0'
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'io.zeebe:zeebe-client-java:0.23.0'
+	implementation 'io.zeebe:zeebe-protocol:0.23.0'
 	implementation 'io.micrometer:micrometer-core:latest.release'
 	implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
+
+	implementation "io.grpc:grpc-netty:${grpcVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    compileOnly "javax.annotation:javax.annotation-api:1.2"
+    runtimeOnly "io.netty:netty-tcnative-boringssl-static:${nettyTcNativeVersion}"
 }
 

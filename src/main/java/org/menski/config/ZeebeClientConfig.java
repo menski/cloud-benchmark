@@ -15,7 +15,7 @@ public class ZeebeClientConfig {
   @Value("${zeebe.address:localhost:26500}")
   private String address;
 
-  @Value("${zeebe.client.id:null}")
+  @Value("${zeebe.client.id:#{null}}")
   private String clientId;
 
   @Autowired
@@ -25,9 +25,7 @@ public class ZeebeClientConfig {
   public ZeebeClient zeebeClient() {
     final ZeebeClientBuilder builder = ZeebeClient.newClientBuilder()
         .brokerContactPoint(address)
-        .numJobWorkerExecutionThreads(0)
-        .defaultJobPollInterval(workerProperties.getPollInterval())
-        .defaultJobWorkerMaxJobsActive(workerProperties.getCapacity());
+        .numJobWorkerExecutionThreads(0);
 
     if (clientId == null) {
       builder.usePlaintext();

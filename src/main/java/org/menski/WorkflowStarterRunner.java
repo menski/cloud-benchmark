@@ -3,7 +3,11 @@ package org.menski;
 import io.zeebe.client.ZeebeClient;
 import io.zeebe.client.api.command.DeployWorkflowCommandStep1.DeployWorkflowCommandBuilderStep2;
 import io.zeebe.model.bpmn.BpmnModelInstance;
-import java.util.concurrent.Semaphore;
+import java.time.Duration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.menski.config.StarterProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,26 +56,29 @@ public class WorkflowStarterRunner implements CommandLineRunner {
   }
 
   public void startWorkflows(long workflowKey) throws InterruptedException {
-    final Semaphore semaphore = new Semaphore(starterProperties.getConcurrency());
-    int requestId = 0;
+    final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
+    final AtomicInteger requestId = new AtomicInteger();
 
-    while (true) {
-      semaphore.acquire();
+    final long delayMs =
+        Duration.ofMinutes(1).dividedBy(starterProperties.getRatePerMinute()).toMillis();
+
+    executorService.scheduleAtFixedRate(() -> {
       zeebeClient
           .newCreateInstanceCommand()
           .workflowKey(workflowKey)
-          .variables(payload.requestId(requestId++).startTime(System.currentTimeMillis()))
+          .variables(payload.requestId(requestId.getAndIncrement()).startTime(System.currentTimeMillis()))
           .send()
           .whenCompleteAsync(
               (workflowInstanceEvent, throwable) -> {
-                semaphore.release();
                 if (throwable == null) {
                   metrics.instanceStarted(workflowKey);
+                  metrics.incrementInstancePartitionId(workflowInstanceEvent.getWorkflowInstanceKey());
                 } else {
                   metrics.instanceFailed(workflowKey);
                   metrics.recordError(workflowKey, throwable);
                 }
               });
-    }
+
+    }, 0, delayMs, TimeUnit.MILLISECONDS);
   }
 }

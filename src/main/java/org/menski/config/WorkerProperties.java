@@ -15,13 +15,8 @@ public class WorkerProperties {
 
   private int capacity = 30;
 
-  private int concurrency = 4;
-
   private Duration completionDelay = Duration.ofMillis(100);
 
   private String taskType = "task";
-
-  private Duration pollInterval = Duration.ofMillis(100);
-
 
 }
