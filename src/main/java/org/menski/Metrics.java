@@ -3,15 +3,19 @@ package org.menski;
 import io.grpc.Status.Code;
 import io.grpc.StatusRuntimeException;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
 import io.zeebe.protocol.Protocol;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class Metrics {
 
+  @Value("${zeebe.namespace:benchmark}")
+  public String namespace;
   @Autowired private MeterRegistry registry;
 
   public void recordError(long workflowKey, Throwable throwable) {
@@ -64,18 +68,17 @@ public class Metrics {
   }
 
   public void incrementCounter(String name, long count, String... tags) {
-    registry.counter(name, tags).increment(count);
+    registry.counter(name, Tags.of(tags).and("namespace", namespace)).increment(count);
   }
 
   public void incrementInstancePartitionId(long workflowInstanceKey) {
     final int partitionId = Protocol.decodePartitionId(workflowInstanceKey);
-    incrementCounter("zeebe.benchmark.instancePartition", 1, "partitionId", String.valueOf(
-        partitionId));
+    incrementCounter(
+        "zeebe.benchmark.instancePartition", 1, "partitionId", String.valueOf(partitionId));
   }
 
   public void incrementJobPartitionId(long jobKey) {
     final int partitionId = Protocol.decodePartitionId(jobKey);
-    incrementCounter("zeebe.benchmark.jobPartition", 1, "partitionId", String.valueOf(
-        partitionId));
+    incrementCounter("zeebe.benchmark.jobPartition", 1, "partitionId", String.valueOf(partitionId));
   }
 }
